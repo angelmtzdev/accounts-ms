@@ -1,3 +1,19 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: accounts-ms
+  r2dbc:
+    # Env var override in production; local default keeps dev frictionless
+    url: ${DB_URL:r2dbc:postgresql://localhost:5432/accounts_db} # r2dbc: scheme, not jdbc: - required by the reactive, non-blocking driver
+    username: ${DB_USERNAME:accounts_user}
+    password: ${DB_PASSWORD:accounts_pass}
+
+management:
+  endpoint:
+    health:
+      # Full details acceptable for local/demo; would need when-authorized in production
+      show-details: always
+
+

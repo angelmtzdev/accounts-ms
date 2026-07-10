@@ -18,7 +18,7 @@ existence within the system.
 ## Status
 Work in progress.
 - [x] Project scaffold + reactive stack
-- [ ] Local infrastructure (PostgreSQL + config)
+- [x] Local infrastructure (PostgreSQL + config)
 - [ ] Domain & persistence (R2DBC)
 - [ ] REST API (reactive endpoints)
 - [ ] Tests

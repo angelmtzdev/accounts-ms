@@ -1,0 +1,30 @@
+services:
+  # Service name
+  postgres:
+    # Alpine-based for a smaller footprint - version pinned to avoid "latest" drift
+    image: postgres:17-alpine
+    # Variables
+    environment:
+      POSTGRES_DB: accounts_db
+      POSTGRES_USER: accounts_user
+      POSTGRES_PASSWORD: accounts_pass
+    # Port mapping
+    ports:
+      # Host:Container
+      - "5432:5432"
+    volumes:
+      - accounts_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # Confirms Postgres accepts connections, not just that it's started
+      test: [ "CMD-SHELL", "pg_isready -U accounts_user -d accounts_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  # Docker-managed volume - avoids host path/permissions issues on Windows
+  accounts_pgdata:
+
+
+
+
