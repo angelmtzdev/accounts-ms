@@ -19,7 +19,8 @@ existence within the system.
 Work in progress.
 - [x] Project scaffold + reactive stack
 - [x] Local infrastructure (PostgreSQL + config)
-- [ ] Domain & persistence (R2DBC)
+- [x] Domain model & ports
+- [ ] Persistence (R2DBC adapter)
 - [ ] REST API (reactive endpoints)
 - [ ] Tests
 
@@ -41,8 +42,21 @@ Work in progress.
   - Prioritized ecosystem maturity for a time-boxed demo — documentation,
   tooling and community resources are consolidated on the 3.x line.
 - **WebFlux (over Spring MVC)**
+  - Non-blocking event loop for I/O-bound, high-concurrency workloads
+  (e.g. the inter-service call before each write).
 - **R2DBC (over JPA/JDBC)**
-- **Polyrepo**
+  - Reactive, non-blocking persistence end-to-end; JDBC/JPA would block the
+  event loop.
+- **Polyrepo (over monorepo)**
+  - Independent deploy cadence and ownership per service; services communicate
+  only over the network contract.
+- **UUID as identifier (over auto-increment)**
+  - Non-sequential, non-guessable IDs — avoids exposing record counts and
+  fits distributed services.
+- **Output ports in `domain` (over `application`)**
+  - The repository contract expresses a domain need over the domain model,
+   so it lives beside it. Both placements are valid; chose one for
+   consistency across the service.
 
 
 ## Next steps / out of scope
